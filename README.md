@@ -1,2 +1,2 @@
 # GitHub Actions Lab 1
-Updated
+Updated with tesst text
