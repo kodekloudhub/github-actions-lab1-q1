@@ -2,12 +2,17 @@ name: CI
 
 on:
   push:  
+    branches:
+      - main  # Specify the branch to trigger the workflow on
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v3  # Ensure that the code is checked out first
+
     - name: Set up Python 3.11
       uses: actions/setup-python@v5
       with:
@@ -16,3 +21,5 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
+
+
