@@ -1,13 +1,24 @@
 name: CI
-
 on:
-  push:  
-
+  workflow_dispatch: 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      max-parallel: 2
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest , windows-latest , ubuntu-20.04 , ubuntu-22.04]
+        exclude:
+          - os: ubuntu-20.04
+    concurrency:
+        group: production-pythons ${{ matrix.os }}
+        cancel-in-progress: true
 
     steps:
+    - name: checkout
+      uses: actions/checkout@v4
+
     - name: Set up Python 3.11
       uses: actions/setup-python@v5
       with:
